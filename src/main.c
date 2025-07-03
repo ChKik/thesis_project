@@ -3,6 +3,7 @@
 #include <string.h>
 #include "image.h"
 
+
 LOG_MODULE_REGISTER(thesis_project);
 
 /* mporw na valw kai DMA sto mellon mias kai to ypostirizei to zephyr*/
@@ -32,7 +33,6 @@ int main(void)
         LOG_ERR("SRAM verification failed!");
         return -EIO;
     }
-
       
     bool verify = memcmp(image_jpeg, (void *)SRAM1_BASE_ADDR, sizeof(image_jpeg)) == 0;
     LOG_INF("SRAM verification: %s", verify ? "PASSED" : "FAILED");
@@ -41,7 +41,7 @@ int main(void)
     LOG_INF("First 32 bytes:");
     for (int i = 0; i < 32; i++) {
         printk("%02x ", ((uint8_t *)SRAM1_BASE_ADDR)[i]);
-        if ((i+1) % 16 == 0) printk("\n");
+        if ((i+1) % 16 == 0) printk("\n"); //gia allagh grammis apla.
     }
 
     return 0;
