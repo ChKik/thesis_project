@@ -1,69 +1,48 @@
 #include <zephyr/kernel.h>
-#include <zephyr/device.h>
-#include <zephyr/drivers/flash.h>
-#include <zephyr/sys/printk.h>
-#include "image.h"  // Include the generated image header
 #include <zephyr/logging/log.h>
+#include <string.h>
+#include "image.h"
 
-// Flash memory addresses (sumfwna me to datasheet kai to dts)
-#define FLASH0_BASE_ADDR 0x02000000  // Secure access to Code Flash
-#define FLASH1_BASE_ADDR 0x27000000  // Secure access to Data Flash
 
-//Logging
 LOG_MODULE_REGISTER(thesis_project);
 
-/*Save the image into flash0 and flash1 of the Renesas ek_ra8d1 board. To grafw kai sta duo flash pros to parwn alla tha xreiastw mono ena argotera.*/
+/* mporw na valw kai DMA sto mellon mias kai to ypostirizei to zephyr*/
 
+#define SRAM1_BASE_ADDR 0x22060000  // Secure alias (or 0x32060000 for non-secure) sumfwna me to memory mapping.
+#define SRAM1_SIZE      512 * 1024   // 512KB
 
+/* Pointer to SRAM1 */
+volatile uint8_t * const sram1 = (uint8_t *)SRAM1_BASE_ADDR;  //volatile giati o pointer mporei na allaksei thesi.
 
 int main(void)
 {
-    const struct device *flash_dev;  //pernei apo to dts automata ta correct variables.
-    int ret=0;
-
-    // Get the flash device binding from the dts tree.
-    flash_dev = DEVICE_DT_GET(DT_CHOSEN(zephyr_flash_controller));
-    if (!device_is_ready(flash_dev)) {
-        printk("Flash device not ready\n");
-        return;
+    /* ver so that image fits in SRAM */
+    if (sizeof(image_jpeg) > SRAM1_SIZE) {
+        LOG_ERR("Image too large for SRAM1!");
+        return -ENOMEM;
     }
 
-    printk("Flash device ready\n");
+    /* Apeuthias. memory copy stin RAM xwris na xreiazetai erase opws stin flash mnimi */
+    memcpy((void *)sram1, image_jpeg, sizeof(image_jpeg));  //me pointer doulevei ousiastika mono.
 
-    // Write image to Code Flash Memory (flash0)
-    ret = flash_write(flash_dev, FLASH0_BASE_ADDR, image_jpeg, image_jpeg_len);
-    if (ret != 0) {
-        printk("Failed to write to Code Flash: %d\n", ret);
+    if (memcmp(image_jpeg, (void *)sram1, sizeof(image_jpeg)) == 0) {
+        LOG_INF("SRAM write successful!");
+        LOG_INF("Image copied to 0x%08x, size %zu bytes", 
+               SRAM1_BASE_ADDR, sizeof(image_jpeg));
     } else {
-        printk("Image written to Code Flash at address 0x%x\n", FLASH0_BASE_ADDR);
+        LOG_ERR("SRAM verification failed!");
+        return -EIO;
+    }
+      
+    bool verify = memcmp(image_jpeg, (void *)SRAM1_BASE_ADDR, sizeof(image_jpeg)) == 0;
+    LOG_INF("SRAM verification: %s", verify ? "PASSED" : "FAILED");
+
+    /* Hex dump first 32 bytes kai verification */
+    LOG_INF("First 32 bytes:");
+    for (int i = 0; i < 32; i++) {
+        printk("%02x ", ((uint8_t *)SRAM1_BASE_ADDR)[i]);
+        if ((i+1) % 16 == 0) printk("\n"); //gia allagh grammis apla.
     }
 
-    // Write image to Data Flash Memory (flash1)
-    ret = flash_write(flash_dev, FLASH1_BASE_ADDR, image_jpeg, image_jpeg_len);
-    if (ret != 0) {
-        printk("Failed to write to Data Flash: %d\n", ret);
-    } else {
-        printk("Image written to Data Flash at address 0x%x\n", FLASH1_BASE_ADDR);
-    }
-
-    // Verify the written data
-    uint8_t read_buffer[image_jpeg_len];
-    ret = flash_read(flash_dev, FLASH0_BASE_ADDR, read_buffer, image_jpeg_len);
-    if (ret != 0) {
-        printk("Failed to read from Code Flash: %d\n", ret);
-    } else if (memcmp(image_jpeg, read_buffer, image_jpeg_len) == 0) {
-        printk("Code Flash verification successful\n");
-    } else {
-        printk("Code Flash verification failed\n");
-    }
-
-    ret = flash_read(flash_dev, FLASH1_BASE_ADDR, read_buffer, image_jpeg_len);
-    if (ret != 0) {
-        printk("Failed to read from Data Flash: %d\n", ret);
-    } else if (memcmp(image_jpeg, read_buffer, image_jpeg_len) == 0) {
-        printk("Data Flash verification successful\n");
-    } else {
-        printk("Data Flash verification failed\n");
-    }
-return 0;
+    return 0;
 }
