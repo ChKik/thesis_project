@@ -7,13 +7,25 @@ GestureModel::GestureModel() :
     model_(tflite::GetModel(zephyr_quantized_int8_tflite)), // pairnei ta weights apo to model_data.cc
     interpreter_(nullptr) {}
 
+
 bool GestureModel::Init() {
-    static tflite::MicroMutableOpResolver<5> resolver;  //exei mono merika ops oxi olo to package gia na savarw space.
-    resolver.AddConv2D();
-    resolver.AddDepthwiseConv2D();
-    resolver.AddAveragePool2D();
-    resolver.AddReshape();
-    resolver.AddSoftmax();
+    //verify oti exei perasei to tflite stin flash mnimi
+    MicroPrintf("Model flash address: %p ", 
+        zephyr_quantized_int8_tflite);
+    static tflite::MicroMutableOpResolver<7> resolver;  // Increased to 7 ops
+    
+    // MobileNetV2 Base
+    resolver.AddConv2D();           // Standard convolution
+    resolver.AddDepthwiseConv2D();  // Depthwise separable conv
+    resolver.AddAveragePool2D();    // For GlobalAveragePooling2D replacement
+    
+    // Head
+    resolver.AddFullyConnected();   // Dense layer
+    resolver.AddSoftmax();          // Softmax activation
+    
+    // Quantization-specific
+    resolver.AddQuantize();         // For uint8 input handling
+    
 
     static tflite::MicroInterpreter interpreter(
         model_, resolver, tensor_arena_, sizeof(tensor_arena_));
@@ -24,6 +36,14 @@ bool GestureModel::Init() {
         MicroPrintf("Tensor allocation failed");
         return false;
     }
+
+    //verify gia to memory usage allocation 
+    MicroPrintf("SRAM usage: %zu/%zu bytes (Arena: 0x%p - 0x%p)",
+           interpreter_->arena_used_bytes(),
+           kTensorArenaSize,
+           tensor_arena_,
+           tensor_arena_ + kTensorArenaSize);
+
 
     input_ = interpreter_->input(0);
     output_ = interpreter_->output(0);
@@ -44,7 +64,14 @@ uint8_t* GestureModel::GetInputBuffer() {
 }
 
 bool GestureModel::Predict() {
-    return interpreter_->Invoke() == kTfLiteOk;
+    //validation gia to memory validation
+    size_t pre_invoke_usage = interpreter_->arena_used_bytes();
+    if (interpreter_->Invoke() != kTfLiteOk) return false;
+    
+    MicroPrintf("Peak RAM usage: %zu bytes (Delta: %zu)",
+               interpreter_->arena_used_bytes(),
+               interpreter_->arena_used_bytes() - pre_invoke_usage);
+    return true;
 }
 
 int GestureModel::GetPrediction() const {

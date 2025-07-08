@@ -16,7 +16,7 @@ public:
     int GetPrediction() const;
 
 private:
-    alignas(16) uint8_t tensor_arena_[kTensorArenaSize];
+    alignas(16) uint8_t tensor_arena_[kTensorArenaSize];  //CMSIS-NN  requires 16-byte alignmen
     const tflite::Model* model_;
     tflite::MicroInterpreter* interpreter_;
     TfLiteTensor* input_;
