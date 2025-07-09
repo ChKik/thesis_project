@@ -40,8 +40,8 @@ bool GestureModel::Init() {
     //verify gia to memory usage allocation 
     MicroPrintf("SRAM usage: %zu/%zu bytes (Arena: 0x%p - 0x%p)",
            interpreter_->arena_used_bytes(),
-           kTensorArenaSize,
-           tensor_arena_,
+           kTensorArenaSize,  //einai sto constants.hpp
+           tensor_arena_,   //einai sto gesture_model.hpp
            tensor_arena_ + kTensorArenaSize);
 
 
@@ -60,7 +60,9 @@ bool GestureModel::Init() {
 }
 
 uint8_t* GestureModel::GetInputBuffer() {
-    return input_->data.uint8;
+    return input_->data.uint8;  //to input_ kai data einai tflite tensors
+     // tha prepei na kanw load tin eikona kai na tin diavasw apo tin sram
+    // opws to eixa kanei paliotera. tha thelei quantize prwta omws.
 }
 
 bool GestureModel::Predict() {
@@ -84,3 +86,4 @@ int GestureModel::GetPrediction() const {
     }
     return max_idx;
 }
+

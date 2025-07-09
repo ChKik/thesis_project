@@ -14,6 +14,7 @@ void main(void) {
     }
 
     while (true) {
+        
       
         uint8_t* input = model.GetInputBuffer();
         // edw tha prepei na ftiaksw na pairnei san input mia eikona apo to memory 

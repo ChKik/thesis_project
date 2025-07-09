@@ -6,7 +6,7 @@ resize_height=224
 
 #checks  to current directory gia number of files.
 for x in range(1,len(os.listdir('/home/haris/thesis_project/image_preprocessing'))):
-    fd=Image.open(f"{x}.jpg","r")
+    fd=Image.open(f"{x}.jpeg")
     fd=fd.resize((resize_width,resize_height),Image.LANCZOS)
     print("Resized image")
     print(fd)

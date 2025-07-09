@@ -1,7 +1,7 @@
 sample:
   description: project for my thesis in vision AI
     application
-  name: my zephyr project for the renesas ek_ra8d1 board.
+  name: My zephyr thesis project for the renesas ek_ra8d1 board.
 common:
   min_ram: 2
   min_flash: 16
@@ -12,7 +12,7 @@ common:
   harness_config:
     type: one_line
     regex:
-      - "Hello World! (.*)"
+      - "Vision AI TEST! (.*)"
 tests:
   sample.basic.helloworld:
     tags: introduction
