@@ -1,0 +1,11 @@
+#Epeidh olo to project trexei se linux , vazw gitattributes gia na min exw conflicts sta line breaks ama anoiksei se Windows.
+*.txt text eof=lf
+*.yaml text eof=lf
+*.conf text eof=lf
+*.c text eof=lf
+*.cc text eof=lf
+*.hpp text eof=lf
+*.h text eof=lf
+*.py text eof=lf
+*.jpg binary
+*.jpeg binary
