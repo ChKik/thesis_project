@@ -6,14 +6,9 @@
 // Source code provided by https://www.tspi.at/2020/03/20/libjpegexample.html?utm_source=chatgpt.com#gsc.tab=0 , all credits go to the author.
 
 
-struct imgRawImage {
-	unsigned int numComponents;
-	unsigned long int width, height;
 
-	unsigned char* lpData;
-};
 
-struct imgRawImage* loadJpegImageFile(char* lpFilename) {
+struct imgRawImage* loadJpegImageFile(const char* lpFilename) {
 	struct jpeg_decompress_struct info;
 	struct jpeg_error_mgr err;
 

@@ -9,7 +9,7 @@ extern "C" {
 
 struct imgRawImage {
     unsigned int numComponents;
-    unsigned long width, height;
+    unsigned long int width, height;
     unsigned char* lpData;
 };
 

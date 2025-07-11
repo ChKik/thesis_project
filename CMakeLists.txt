@@ -17,12 +17,9 @@ list(APPEND EXTRA_ZEPHYR_MODULES
 )
 
 target_sources(app PRIVATE
-    scripts/raw_buffer_image_decoder.c
     src/main.cc
-    src/constants.cc
     src/gesture_model.cc
     src/model_data.cc
     src/output_handler.cc
 )
 
-target_include_directories(app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/scripts)
