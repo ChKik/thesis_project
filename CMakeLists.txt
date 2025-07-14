@@ -16,6 +16,7 @@ list(APPEND EXTRA_ZEPHYR_MODULES
     ${ZEPHYR_TFLITE_MODULE_DIR}           # Links TFLite Micro library
 )
 
+
 target_sources(app PRIVATE
     src/main.cc
     src/gesture_model.cc

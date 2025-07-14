@@ -12,12 +12,12 @@ namespace {
 int main(int argc,char *argv[]) {
     if (!model.Init()) {
         MicroPrintf("Failed to initialize model");
-        return;
+        return -1;
     }
 
     while (true) {
         
-         // edw tha prepei na na pairnei san input mia eikona apo to memory 
+         // edw tha prepei na na pairnei san input mia eikona apo to memory , prepei na to testarw ama doulevei twra.
         uint8_t* input = model.GetInputBuffer();
         memcpy(input, image_buffer, image_buffer_len);
 
