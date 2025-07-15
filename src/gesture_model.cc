@@ -12,11 +12,14 @@ bool GestureModel::Init() {
     //verify oti exei perasei to tflite stin flash mnimi
     MicroPrintf("Model flash address: %p ", 
         zephyr_quantized_int8_tflite);
-    static tflite::MicroMutableOpResolver<7> resolver;  // Increased to 7 ops
+    static tflite::MicroMutableOpResolver<10> resolver;  // Increased to 10 ops apo 7 
     
+    resolver.AddAdd();              //Prosthiki tou ADD poy eleipe
+    resolver.AddMean();             //Prosthiki toy MEAN 
+
     // MobileNetV2 Base
     resolver.AddConv2D();           // Standard convolution
-    resolver.AddDepthwiseConv2D();  // Depthwise separable conv
+    resolver.AddDepthwiseConv2D();  // Depthwise separable conv, to evala se comment proswrina gia na dw mipos mporei xwris alla den gientai.
     resolver.AddAveragePool2D();    // For GlobalAveragePooling2D replacement
     
     // Head

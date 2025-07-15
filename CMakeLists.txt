@@ -12,6 +12,9 @@ project(thesis_project)
 set(NO_THREADSAFE_STATICS $<TARGET_PROPERTY:compiler-cpp,no_threadsafe_statics>)
 zephyr_compile_options($<$<COMPILE_LANGUAGE:CXX>:${NO_THREADSAFE_STATICS}>)
 
+
+set(TFLITE_MICRO_KERNELS_DIR "${ZEPHYR_TFLITE_MODULE_DIR}/tensorflow/lite/micro/kernels/cmsis-nn") #much more memory efficient if we can use CMSIS-NN,den allakse tipota.
+
 list(APPEND EXTRA_ZEPHYR_MODULES
     ${ZEPHYR_TFLITE_MODULE_DIR}           # Links TFLite Micro library
 )

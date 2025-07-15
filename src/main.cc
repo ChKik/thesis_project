@@ -21,7 +21,6 @@ int main(int argc,char *argv[]) {
         uint8_t* input = model.GetInputBuffer();
         memcpy(input, image_buffer, image_buffer_len);
 
-
         // 2. Run inference
         if (!model.Predict()) {
             MicroPrintf("Prediction failed");
