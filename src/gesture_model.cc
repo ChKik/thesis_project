@@ -2,6 +2,8 @@
 #include "constants.hpp"
 #include <tensorflow/lite/micro/micro_log.h> 
 #include <tensorflow/lite/micro/micro_mutable_op_resolver.h>
+#include "zephyr_const_includers.h"
+
 
 GestureModel::GestureModel() : 
     model_(tflite::GetModel(zephyr_quantized_int8_tflite)), // pairnei ta weights apo to model_data.cc

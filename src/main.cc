@@ -5,6 +5,7 @@
 #include "image_buffer.h"
 
 
+
 namespace {
     GestureModel model;
 }

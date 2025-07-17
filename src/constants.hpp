@@ -1,7 +1,7 @@
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
 
-#define KILOBYTE_NUM 170
+#define KILOBYTE_NUM 120
 //constexpr giati everything is provided at compile time the function can be evaluated at compile time. 
 namespace {
     constexpr int kGestureCount = 20;
@@ -24,6 +24,7 @@ namespace {
 //  200      |   10,2kb
 //  180      |   compiled alla den exei arketh ram gia tis prakseis
 //  170      |   >>
+//  120      |      >>
 
 
 #endif // CONSTANTS_H
