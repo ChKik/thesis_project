@@ -9,7 +9,7 @@ namespace {
     constexpr int kImageHeight = 224;
     constexpr int kChannels = 3;
     // edw einai to thema , pws tha ginei to allocate toy arena gia to model.
-    constexpr int kTensorArenaSize = KILOBYTE_NUM * 1024; // Adjusted for your model, mporw na to valw 800kb kai na to kanei mono toy memory assign isws?
+    constexpr int kTensorArenaSize = KILOBYTE_NUM * 1024; // global static buffer ginetai allocated sto link time oxi dynamically.
 }
 
 // na checkarw to max megethos poy mporei na exei o tensoras , mesw toy compile.
@@ -23,7 +23,7 @@ namespace {
 //  224      |   35kb
 //  200      |   10,2kb
 //  180      |   compiled alla den exei arketh ram gia tis prakseis
-//  170      |    
+//  170      |   >>
 
 
 #endif // CONSTANTS_H

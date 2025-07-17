@@ -12,31 +12,37 @@ bool GestureModel::Init() {
     //verify oti exei perasei to tflite stin flash mnimi
     MicroPrintf("Model flash address: %p ", 
         zephyr_quantized_int8_tflite);
-    static tflite::MicroMutableOpResolver<10> resolver;  // Increased to 10 ops apo 7 
     
-    resolver.AddAdd();              //Prosthiki tou ADD poy eleipe
-    resolver.AddMean();             //Prosthiki toy MEAN 
+    //debug section.
+    MicroPrintf("===== GestureModel::Init() =====");
+    MicroPrintf("Model flatbuffer version: %d", model_->version());
+    MicroPrintf("Model address: %p", zephyr_quantized_int8_tflite);
+    MicroPrintf("Model arena size: %d bytes", kTensorArenaSize);
+    MicroPrintf("Tensor arena location: 0x%p - 0x%p", tensor_arena_, tensor_arena_ + kTensorArenaSize);
 
-    // MobileNetV2 Base
-    resolver.AddConv2D();           // Standard convolution
-    resolver.AddDepthwiseConv2D();  // Depthwise separable conv, to evala se comment proswrina gia na dw mipos mporei xwris alla den gientai.
-    resolver.AddAveragePool2D();    // For GlobalAveragePooling2D replacement
+    static tflite::MicroMutableOpResolver<8> resolver;  // Increased to 8 ops apo 7 
     
-    // Head
-    resolver.AddFullyConnected();   // Dense layer
-    resolver.AddSoftmax();          // Softmax activation
-    
-    // Quantization-specific
-    resolver.AddQuantize();         // For uint8 input handling
-    
+   //  operators with debug output
+    MicroPrintf("Registering operators...");
+    if (resolver.AddAdd() != kTfLiteOk) MicroPrintf("Failed to register Add");
+    if (resolver.AddMean() != kTfLiteOk) MicroPrintf("Failed to register Mean");
+    if (resolver.AddConv2D() != kTfLiteOk) MicroPrintf("Failed to register Conv2D");
+    if (resolver.AddDepthwiseConv2D() != kTfLiteOk) MicroPrintf("Failed to register DepthwiseConv2D");
+    if (resolver.AddAveragePool2D() != kTfLiteOk) MicroPrintf("Failed to register AveragePool2D");
+    if (resolver.AddFullyConnected() != kTfLiteOk) MicroPrintf("Failed to register FullyConnected");
+    if (resolver.AddSoftmax() != kTfLiteOk) MicroPrintf("Failed to register Softmax");
+    if (resolver.AddQuantize() != kTfLiteOk) MicroPrintf("Failed to register Quantize");
 
     static tflite::MicroInterpreter interpreter(
         model_, resolver, tensor_arena_, sizeof(tensor_arena_));
     
     interpreter_ = &interpreter;
     
+
     if (interpreter_->AllocateTensors() != kTfLiteOk) {
-        MicroPrintf("Tensor allocation failed");
+        MicroPrintf("Tensor allocation failed");  //edw failarei to flash. Den exei arketo xwro to arena space.
+        MicroPrintf("Tried to allocate %zu bytes (arena: %zu)", 
+                    interpreter_->arena_used_bytes(), kTensorArenaSize);
         return false;
     }
 
