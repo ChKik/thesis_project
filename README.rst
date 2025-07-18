@@ -15,10 +15,10 @@ This application can be built and executed on QEMU as follows:
 
 .. zephyr-app-commands::
    :zephyr-app: src/main
-   :host-os: unix
-   :board: qemu_x86
+   :host-os: Ubuntu 22.04
+   :board: EK-RA8D1
    :goals: run
    :compact:
 
-To build for another board, change "qemu_x86" above to that board's name.
+To build for another board, change "EK-RA8D1" above to that board's name.
 
