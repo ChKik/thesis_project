@@ -13,22 +13,11 @@ namespace {
 }
 
 // na checkarw to max megethos poy mporei na exei o tensoras , mesw toy compile.
-//TESTS
-//  kb size  |   RAM Overflow
-//  800      |   600 kb
-//  600      |   420 kb
-//  512      |   330 kb
-//  450      |   266 kb
-//  300      |   113 kb
-//  224      |   35kb
-//  200      |   10,2kb
-//  180      |   compiled alla den exei arketh ram gia tis prakseis
-//  170      |   >>
-//  120      |      >>
+
 
 // META TIS ALLAGES TIS CONST EIKONAS/BUFFER ME TIN RAM
 //800       | thelei parapanw to arena
-//850
+//850       | compiled kai doulevei to model
 
 
 #endif // CONSTANTS_H
