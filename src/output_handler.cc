@@ -2,26 +2,28 @@
 #include <tensorflow/lite/micro/micro_log.h>
 
 const char* kGestureLabels[kGestureCount] = {
-    "Circle Hand",
-    "Pointer Finger",
-    "Two Fingers Lifted",
-    "Three Fingers Lifted",
-    "Five Fingers Lifted",
-    "Three Fingers Fist",
-    "Pointer Middle Pinky Lifted",
-    "Thumb Ring Pinky  Lifted",
-    "Middle Ring Pinky Lifted",
-    "Loser Sign",
-    "Closed Fist",
-    "Small Indicator",
-    "Fingers Crossed",
-    "Closed Fist Upwards",
-    "Ok sign sideways",
-    "Hook finger",
-    "Helicopter sign",
-    "British Pinky",
-    "Okay sign upwards"
+    "Class 0",
+    "Class 1",
+    "Class 2",
+    "Class 3",
+    "Class 4",
+    "Class 5",
+    "Class 6",
+    "Class 7",
+    "Class 8",
+    "Class 9",
+    "Class 10",
+    "Class 11",
+    "Class 12",
+    "Class 13",
+    "Class 14",
+    "Class 15",
+    "Class 16",
+    "Class 17",
+    "Class 18",
+    "Class 19"
 };
+
 
 void HandleOutput(int gesture_class) {
     if (gesture_class >= 0 && gesture_class < kGestureCount) {
