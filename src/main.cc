@@ -1,4 +1,4 @@
-#include <zephyr/kernel.h>  //auto to vriskei aytomata apo to zephyrbase poy kaneis source. Wstoso tha dokimasw na to valw sto path.
+#include <zephyr/kernel.h>  //auto to vriskei aytomata apo to zephyrbase poy kaneis source. To evala kai sto sto path gia na to vriskei to vscode.
 #include "gesture_model.hpp"
 #include "output_handler.hpp"
 #include "constants.hpp"
