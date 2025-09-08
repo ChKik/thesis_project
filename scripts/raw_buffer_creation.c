@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// This function takes as argument the path of a resized image and turns it into a binary file.
 void execute_image_decoding(){
 
 struct imgRawImage* img = loadJpegImageFile("/home/haris/thesis_project/image_processed/1_resized.jpg"); //stin c dne mporeis na exeis se global var assigned sunartisi.
