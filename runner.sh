@@ -20,6 +20,8 @@ xxd -i -n image_buffer image_buffer.bin > src/image_buffer.h #vazw kai custom on
 echo "Removing image_buffer.bin from thesis_project"
 rm image_buffer.bin
 
+echo "Turning tflite file into header file using xxd"
+xxd -i zephyr_quantized_int8.tflite > src/model_data.cc
 
 
 echo "Starting up virtual env and setting zephyr_base"
