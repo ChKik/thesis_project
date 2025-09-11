@@ -2,9 +2,15 @@
 #include "gesture_model.hpp"
 #include "output_handler.hpp"
 #include "constants.hpp"
-#include "image_buffer.h"
+//Test images
+
+#include "class100_image.h"
+#include "class120_image.h"
+#include "class000_image.h"
 
 
+
+int iteration_counter=0;
 
 namespace {
     GestureModel model;
@@ -18,11 +24,11 @@ extern "C" int main(void){
         return -1;
     }
 
-    while (true) {
+    while (iteration_counter<3) {  //to vazw na trexei mono 3 fores pros to parwn to prediction tis eikonas.
         
          // edw tha prepei na na pairnei san input mia eikona apo to memory , prepei na to testarw ama doulevei twra.
         uint8_t* input = model.GetInputBuffer();
-        memcpy(input, image_buffer, image_buffer_len);
+        memcpy(input, class000_image, class000_image_len);  //pairnei to image_buffer.bin  san input
 
         // 2. Run inference
         if (!model.Predict()) {
@@ -35,6 +41,7 @@ extern "C" int main(void){
         HandleOutput(model.GetPrediction());
         
         k_msleep(100); 
+        iteration_counter++;
     }
     return 0;
 }

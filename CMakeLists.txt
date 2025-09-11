@@ -19,11 +19,17 @@ list(APPEND EXTRA_ZEPHYR_MODULES
     ${ZEPHYR_TFLITE_MODULE_DIR}           # Links TFLite Micro library
 )
 
+target_include_directories(app PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/images_directory
+)
+
+file(GLOB IMAGE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/images_directory/*.cc)
 
 target_sources(app PRIVATE
     src/main.cc
     src/gesture_model.cc
     src/model_data.cc
     src/output_handler.cc
+    ${IMAGE_SOURCES}
 )
 
