@@ -1,4 +1,4 @@
-#include <zephyr/kernel.h>  //auto to vriskei aytomata apo to zephyrbase poy kaneis source. Wstoso tha dokimasw na to valw sto path.
+#include <zephyr/kernel.h>  //auto to vriskei aytomata apo to zephyrbase poy kaneis source. To evala kai sto sto path gia na to vriskei to vscode.
 #include "gesture_model.hpp"
 #include "output_handler.hpp"
 #include "constants.hpp"
@@ -9,8 +9,10 @@
 namespace {
     GestureModel model;
 }
-
-int main(int argc,char *argv[]) {
+/*//eprepe na to allaksw gia na min exei conflict me to Zephyr main kai gia na mporei na to vrei to zephyr. 
+Epeidh einai C++ file kai ta Zephyr headers kanoyn declare extern int main(void);  gia to   entrypoint
+Exei diko toy Zephyr declaration diladi.*/
+extern "C" int main(void){  
     if (!model.Init()) {
         MicroPrintf("Failed to initialize model");
         return -1;

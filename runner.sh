@@ -11,15 +11,17 @@ gcc scripts/raw_buffer_image_decoder.c \
     -o scripts/decode_image_binary -ljpeg
 
 ./scripts/decode_image_binary
-
+#Image names follow the following naming protocol:XXX,      XX->Number of class for example 10 and X->Image number for example 0. class100. This is for testing purposes right now.
 
 echo "Creating the header file with xxd"
-xxd -i -n image_buffer image_buffer.bin > src/image_buffer.h #vazw kai custom onoma sto image_buffer.
+xxd -i -n image_buffer image_buffer.bin > src/image_buffer.h #vazw kai custom onoma sto image_buffer. Auto einai poy pernaei sto model argotera.
 
 
 echo "Removing image_buffer.bin from thesis_project"
 rm image_buffer.bin
 
+echo "Turning tflite file into header file using xxd"
+xxd -i zephyr_quantized_int8.tflite > src/model_data.cc
 
 
 echo "Starting up virtual env and setting zephyr_base"

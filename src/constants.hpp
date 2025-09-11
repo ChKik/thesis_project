@@ -1,7 +1,7 @@
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
 
-#define KILOBYTE_NUM 850
+#define KILOBYTE_NUM 880
 //constexpr giati everything is provided at compile time the function can be evaluated at compile time. 
 namespace {
     constexpr int kGestureCount = 20;
@@ -17,7 +17,9 @@ namespace {
 
 // META TIS ALLAGES TIS CONST EIKONAS/BUFFER ME TIN RAM
 //800       | thelei parapanw to arena
-//850       | compiled kai doulevei to model
+//850       | compiled kai doulevei to model <-- To palio model nai to new oxi
+//860       | test gia to new model. Oxi den mporei
+//880       | den kanei kan build. overflow by  6570 bytes
 
 
 #endif // CONSTANTS_H
