@@ -1,12 +1,12 @@
 .. zephyr:code-sample:: thesis_project
-   :name: thesis_projectd
-
-   Flash the memory of the device with a C array that represents an image and read it after. 
+   :name: thesis_project
 
 Overview
 ********
 
-A simple code using Zephyr APIs to flash the memory of the EK-RA8D1 board by Renesas with an image C array.
+Flash the memory of the device images from a hand gesture dataset and then use a customtrained model based on MobileNetV2 in order to make predictions.
+In order to run this project for yourself , make sure the paths for the files are correct in all the scripts to locate the dataset and the directories
+,then execute the initiation_script in order to invoke a prediction from the model.
 
 Building and Running
 ********************
