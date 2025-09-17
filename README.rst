@@ -1,13 +1,13 @@
 .. zephyr:code-sample:: thesis_project
-   :name: thesis_projectd
-
-   Utilizing ZephyRTOS to build an embedded vision AI hand gesture predictor utilizing the RENESAS EK-RA8D1 board.
+   :name: thesis_project
 
 Overview
 ********
 
-A simple code using Zephyr APIs to flash the memory of the EK-RA8D1 board by Renesas with an image C array representing a hand gesture.
-A vision AI model that is flashed along with the image in the board, based on the MobileNetV2 will be used to classify hand gesture  using the device's resources.
+
+Flash the memory of the device images from a hand gesture dataset and then use a customtrained model based on MobileNetV2 in order to make predictions.
+In order to run this project for yourself , make sure the paths for the files are correct in all the scripts to locate the dataset and the directories
+,then execute the initiation_script in order to invoke a prediction from the model.
 
 
 Building and Running

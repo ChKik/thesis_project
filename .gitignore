@@ -1,3 +1,4 @@
 # Ignore the build folder and .vscode folder
 /build/
 /.vscode/
+.ipynb

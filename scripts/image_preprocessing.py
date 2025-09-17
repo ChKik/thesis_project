@@ -77,7 +77,7 @@ extern const unsigned int {varname}_len;
     lines = []
     lines.append(f'#include "{os.path.basename(out_h)}"\n\n')
     lines.append(f'const unsigned int {varname}_len = {n};\n')
-    lines.append(f'const unsigned char {varname}[] = {{\n')
+    lines.append(f'alignas(16) const unsigned char {varname}[] = {{\n')
     for i in range(0, n, 12):
         chunk = data[i:i+12]
         line = '  ' + ', '.join(f'0x{b:02x}' for b in chunk) + ',\n'
@@ -136,7 +136,7 @@ def main():
         print(" Wrote:", out_cc, out_h)
         print(" First 10 bytes:", list(bin_bytes[:10]))
 
-    print("All done. Verify in your project that you include the generated headers and that the arrays are const (so they go to flash).")
+    print("All done with generated headers")
 
 if __name__ == '__main__':
     main()

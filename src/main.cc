@@ -4,13 +4,14 @@
 #include "constants.hpp"
 //Test images
 
-#include "class100_image.h"
-#include "class120_image.h"
-#include "class000_image.h"
+// #include "class100_image.h"
+// #include "class120_image.h"
+// #include "class000_image.h"
+
+#include  "all_images.h"
 
 
-
-int iteration_counter=0;
+unsigned int iteration_counter=0;
 
 namespace {
     GestureModel model;
@@ -24,11 +25,17 @@ extern "C" int main(void){
         return -1;
     }
 
-    while (iteration_counter<3) {  //to vazw na trexei mono 3 fores pros to parwn to prediction tis eikonas.
+    while (iteration_counter<num_images) {  //to vazw na trexei mono 3 fores pros to parwn to prediction tis eikonas.
         
-         // edw tha prepei na na pairnei san input mia eikona apo to memory , prepei na to testarw ama doulevei twra.
+        const unsigned char* data = all_images[iteration_counter].data;
+        unsigned int len = all_images[iteration_counter].length;
+
         uint8_t* input = model.GetInputBuffer();
-        memcpy(input, class000_image, class000_image_len);  //pairnei to image_buffer.bin  san input
+        memcpy(input, data, len);
+
+        //  // edw tha prepei na na pairnei san input mia eikona apo to memory , prepei na to testarw ama doulevei twra.
+        // uint8_t* input = model.GetInputBuffer();
+        // memcpy(input, class000_image, class000_image_len);  //pairnei to image_buffer.bin  san input
 
         // 2. Run inference
         if (!model.Predict()) {
@@ -40,8 +47,9 @@ extern "C" int main(void){
         // 3. Handle results
         HandleOutput(model.GetPrediction());
         
-        k_msleep(100); 
         iteration_counter++;
+        k_msleep(100); 
+        
     }
     return 0;
 }
