@@ -9,6 +9,11 @@ Flash the memory of the device images from a hand gesture dataset and then use a
 In order to run this project for yourself , make sure the paths for the files are correct in all the scripts to locate the dataset and the directories
 ,then execute the initiation_script in order to invoke a prediction from the model.
 
+Dataset used:
+********************
+https://www.kaggle.com/datasets/aryarishabh/hand-gesture-recognition-dataset
+
+All credits go to the original author of the dataset.
 
 Building and Running
 ********************
