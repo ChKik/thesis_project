@@ -1,6 +1,7 @@
 #include "output_handler.hpp"
 #include <tensorflow/lite/micro/micro_log.h>
 
+//Output String displayed based on the index of the result
 const char* kGestureLabels[kGestureCount] = {
     "Class 0",
     "Class 1",

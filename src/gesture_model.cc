@@ -22,7 +22,7 @@ bool GestureModel::Init() {
     MicroPrintf("Model arena size: %d bytes", kTensorArenaSize);
     MicroPrintf("Tensor arena location: 0x%p - 0x%p", tensor_arena_, tensor_arena_ + kTensorArenaSize);
 
-    static tflite::MicroMutableOpResolver<8> resolver;  // Increased to 8 ops apo 7 
+    static tflite::MicroMutableOpResolver<8> resolver; 
     
    //  operators with debug output
     MicroPrintf("Registering operators...");

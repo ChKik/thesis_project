@@ -8,7 +8,6 @@ namespace {
     constexpr int kImageWidth = 224;
     constexpr int kImageHeight = 224;
     constexpr int kChannels = 3;
-    // edw einai to thema , pws tha ginei to allocate toy arena gia to model.
     constexpr int kTensorArenaSize = KILOBYTE_NUM * 1024; // global static buffer ginetai allocated sto link time oxi dynamically.
 }
 
@@ -19,7 +18,7 @@ namespace {
 //800       | thelei parapanw to arena
 //850       | compiled kai doulevei to model <-- To palio model nai to new oxi
 //860       | test gia to new model. Oxi den mporei
-//880       | den kanei kan build. overflow by  6570 bytes
+//880       | kanei build oriaka
 
 
 #endif // CONSTANTS_H

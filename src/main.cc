@@ -2,11 +2,6 @@
 #include "gesture_model.hpp"
 #include "output_handler.hpp"
 #include "constants.hpp"
-//Test images
-
-// #include "class100_image.h"
-// #include "class120_image.h"
-// #include "class000_image.h"
 
 #include  "all_images.h"
 
@@ -33,18 +28,15 @@ extern "C" int main(void){
         uint8_t* input = model.GetInputBuffer();
         memcpy(input, data, len);
 
-        //  // edw tha prepei na na pairnei san input mia eikona apo to memory , prepei na to testarw ama doulevei twra.
-        // uint8_t* input = model.GetInputBuffer();
-        // memcpy(input, class000_image, class000_image_len);  //pairnei to image_buffer.bin  san input
 
-        // 2. Run inference
+        // Run inference
         if (!model.Predict()) {
             MicroPrintf("Prediction failed");
             k_msleep(100);
             continue;
         }
 
-        // 3. Handle results
+        // 3. Handle results of the predictions and output on Picocom
         HandleOutput(model.GetPrediction());
         
         iteration_counter++;
