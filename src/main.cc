@@ -28,6 +28,9 @@ extern "C" int main(void){
         uint8_t* input = model.GetInputBuffer();
         memcpy(input, data, len);
 
+         /* ---- TIMER START ---- */
+        uint32_t start_time = (uint32_t)k_uptime_get_32();
+       
 
         // Run inference
         if (!model.Predict()) {
@@ -36,7 +39,14 @@ extern "C" int main(void){
             continue;
         }
 
-        // 3. Handle results of the predictions and output on Picocom
+         /* ---- TIMER END ---- */
+        uint32_t end_time = (uint32_t)k_uptime_get_32();
+        uint32_t elapsed = end_time - start_time;
+
+        MicroPrintf("Inference %u took %u ms", iteration_counter, elapsed);
+
+
+        // Handle results of the predictions and output on Picocom
         HandleOutput(model.GetPrediction());
         
         iteration_counter++;

@@ -1,21 +1,21 @@
 #pragma once
 
-#include "class0_1119_image.h"
-#include "class10_906_image.h"
-#include "class1_1087_image.h"
-#include "class1_926_image.h"
+#include "class10_923_image.h"
+#include "class13_1112_image.h"
+#include "class16_1014_image.h"
+#include "class19_976_image.h"
 
-extern const unsigned char class0_1119_image[];
-extern const unsigned int class0_1119_image_len;
+extern const unsigned char class10_923_image[];
+extern const unsigned int class10_923_image_len;
 
-extern const unsigned char class10_906_image[];
-extern const unsigned int class10_906_image_len;
+extern const unsigned char class13_1112_image[];
+extern const unsigned int class13_1112_image_len;
 
-extern const unsigned char class1_1087_image[];
-extern const unsigned int class1_1087_image_len;
+extern const unsigned char class16_1014_image[];
+extern const unsigned int class16_1014_image_len;
 
-extern const unsigned char class1_926_image[];
-extern const unsigned int class1_926_image_len;
+extern const unsigned char class19_976_image[];
+extern const unsigned int class19_976_image_len;
 
 struct ImageBuffer {
     const unsigned char* data;
